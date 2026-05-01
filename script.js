@@ -23,7 +23,9 @@ let computerScore = 0;
 
 
 function playRound(humanChoice, computerChoice) {
-    if (
+    if (humanChoice === computerChoice) {
+        console.log(`Draw! Both sides chose: ${humanChoice}`);
+    } else if (
         humanChoice === "rock" && computerChoice === "scissors"
         || humanChoice === "paper" && computerChoice === "rock"
         || humanChoice === "scissors" && computerChoice === "paper"
