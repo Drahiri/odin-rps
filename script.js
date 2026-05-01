@@ -18,23 +18,28 @@ function getHumanChoice() {
     return prompt("Choose one: rock, paper, scissors").toLowerCase();
 }
 
+
+function capitalize(text) {
+    return text[0].toUpperCase() + text.slice(1);
+}
+
 let humanScore = 0;
 let computerScore = 0;
 
 
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
-        console.log(`Draw! Both sides chose: ${humanChoice}`);
+        console.log(`Draw! Both sides chose: ${capitalize(humanChoice)}`);
     } else if (
         humanChoice === "rock" && computerChoice === "scissors"
         || humanChoice === "paper" && computerChoice === "rock"
         || humanChoice === "scissors" && computerChoice === "paper"
     ) {
         humanScore++;
-        console.log(`You won! ${humanChoice} beats ${computerChoice}.`);
+        console.log(`You won! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}.`);
     } else {
         computerScore++;
-        console.log(`You lose! ${computerChoice} beats ${humanChoice}.`);
+        console.log(`You lose! ${capitalize(computerChoice)} beats ${capitalize(humanChoice)}.`);
     }
 }
 
