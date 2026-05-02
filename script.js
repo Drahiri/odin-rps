@@ -23,11 +23,9 @@ function capitalize(text) {
     return text[0].toUpperCase() + text.slice(1);
 }
 
-let humanScore = 0;
-let computerScore = 0;
-
 
 function playRound(humanChoice, computerChoice) {
+    let winner = "";
     if (humanChoice === computerChoice) {
         console.log(`Draw! Both sides chose: ${capitalize(humanChoice)}`);
     } else if (
@@ -35,21 +33,36 @@ function playRound(humanChoice, computerChoice) {
         || humanChoice === "paper" && computerChoice === "rock"
         || humanChoice === "scissors" && computerChoice === "paper"
     ) {
-        humanScore++;
+        winner = "human"
         console.log(`You won! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}.`);
     } else {
-        computerScore++;
+        winner = "computer";
         console.log(`You lose! ${capitalize(computerChoice)} beats ${capitalize(humanChoice)}.`);
     }
+
+    return winner
 }
 
 
 function playGame() {
+    let humanScore = 0;
+    let computerScore = 0;
+
     for (let i = 0; i < 5; i++) {
         const humanSelection = getHumanChoice();
         const computerSelection = getComputerChoice();
 
-        playRound(humanSelection, computerSelection);
+        const winner = playRound(humanSelection, computerSelection);
+
+        switch (winner) {
+            case "human":
+                humanScore++;
+                break;
+
+            case "computer":
+                computerScore++;
+                break;
+        }
     }
 
     console.log("Final scores:")
