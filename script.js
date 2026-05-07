@@ -19,16 +19,21 @@ function capitalize(text) {
 }
 
 
+function playerWon(humanChoice, computerChoice) {
+    const rockBeatsScissors = humanChoice === "rock" && computerChoice === "scissors";
+    const paperBeatsRock = humanChoice === "paper" && computerChoice === "rock";
+    const scissorsBeatsPaper = humanChoice === "scissors" && computerChoice === "paper";
+
+    return rockBeatsScissors || paperBeatsRock || scissorsBeatsPaper;
+}
+
+
 function playRound(humanChoice, computerChoice) {
     const resultsDiv = document.querySelector("#results")
     let winner = "";
     if (humanChoice === computerChoice) {
         resultsDiv.textContent = `Draw! Both sides chose: ${capitalize(humanChoice)}`;
-    } else if (
-        humanChoice === "rock" && computerChoice === "scissors"
-        || humanChoice === "paper" && computerChoice === "rock"
-        || humanChoice === "scissors" && computerChoice === "paper"
-    ) {
+    } else if (playerWon(humanChoice, computerChoice)) {
         winner = "human"
         resultsDiv.textContent = `You won! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}.`;
     } else {
