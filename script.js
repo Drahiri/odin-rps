@@ -70,4 +70,12 @@ function playGame() {
     console.log(`Computer: ${computerScore}`);
 }
 
-playGame();
+const buttons = Array.from(document.querySelectorAll("button"));
+
+buttons.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+        const humanSelection = e.target.textContent.toLowerCase();
+        const computerSelection = getComputerChoice();
+        playRound(humanSelection, computerSelection);
+    });
+});
