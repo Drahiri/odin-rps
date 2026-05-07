@@ -25,28 +25,29 @@ function capitalize(text) {
 
 
 function playRound(humanChoice, computerChoice) {
+    const resultsDiv = document.querySelector("#results")
     let winner = "";
     if (humanChoice === computerChoice) {
-        console.log(`Draw! Both sides chose: ${capitalize(humanChoice)}`);
+        resultsDiv.textContent = `Draw! Both sides chose: ${capitalize(humanChoice)}`;
     } else if (
         humanChoice === "rock" && computerChoice === "scissors"
         || humanChoice === "paper" && computerChoice === "rock"
         || humanChoice === "scissors" && computerChoice === "paper"
     ) {
         winner = "human"
-        console.log(`You won! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}.`);
+        resultsDiv.textContent = `You won! ${capitalize(humanChoice)} beats ${capitalize(computerChoice)}.`;
     } else {
         winner = "computer";
-        console.log(`You lose! ${capitalize(computerChoice)} beats ${capitalize(humanChoice)}.`);
+        resultsDiv.textContent = `You lose! ${capitalize(computerChoice)} beats ${capitalize(humanChoice)}.`;
     }
 
     return winner
 }
 
+let humanScore = 0;
+let computerScore = 0;
 
 function playGame() {
-    let humanScore = 0;
-    let computerScore = 0;
 
     for (let i = 0; i < 5; i++) {
         const humanSelection = getHumanChoice();
@@ -70,12 +71,28 @@ function playGame() {
     console.log(`Computer: ${computerScore}`);
 }
 
+function updateScore(winner) {
+    const scores = document.querySelector("#scores");
+    switch (winner) {
+        case "human":
+            humanScore++;
+            break;
+
+        case "computer":
+            computerScore++;
+            break;
+    }
+
+    scores.textContent = `Player: ${humanScore} | Computer: ${computerScore}`;
+}
+
 const buttons = Array.from(document.querySelectorAll("button"));
 
 buttons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
         const humanSelection = e.target.textContent.toLowerCase();
         const computerSelection = getComputerChoice();
-        playRound(humanSelection, computerSelection);
+        const winner = playRound(humanSelection, computerSelection);
+        updateScore(winner);
     });
 });
