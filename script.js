@@ -42,6 +42,7 @@ function playRound(humanChoice, computerChoice) {
 let humanScore = 0;
 let computerScore = 0;
 const NUMBER_OF_ROUNDS = 5;
+let endOfGame = false;
 
 function updateScore(winner) {
     const scores = document.querySelector("#scores");
@@ -57,8 +58,10 @@ function updateScore(winner) {
 
     if (humanScore === NUMBER_OF_ROUNDS) {
         scores.textContent = "CONGRATULATIONS! YOU WON THE GAME!";
+        endOfGame = true;
     } else if (computerScore === NUMBER_OF_ROUNDS) {
         scores.textContent = "Too bad. You lost the game.";
+        endOfGame = true;
     } else {
         scores.textContent = `Player: ${humanScore} | Computer: ${computerScore}`;
     }
@@ -68,9 +71,11 @@ const buttons = Array.from(document.querySelectorAll("button"));
 
 buttons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
-        const humanSelection = e.target.textContent.toLowerCase();
-        const computerSelection = getComputerChoice();
-        const winner = playRound(humanSelection, computerSelection);
-        updateScore(winner);
+        if (!endOfGame) {
+            const humanSelection = e.target.textContent.toLowerCase();
+            const computerSelection = getComputerChoice();
+            const winner = playRound(humanSelection, computerSelection);
+            updateScore(winner);
+        }
     });
 });
